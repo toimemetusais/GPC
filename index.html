@@ -760,7 +760,7 @@ async function switchToSepolia() {
       const user = accounts[0];
 
       const currentChainId = await ethereum.request({ method: "eth_chainId" });
-        if (currentChainId !== SEPOLIA_CHAIN_ID) {
+        if (currentChainId !== 10143) {
             await switchToSepolia();
         }
 
