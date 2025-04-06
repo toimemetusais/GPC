@@ -674,7 +674,7 @@ document.getElementById("adoptBtn").addEventListener("click", async () => {
     return;
   }
 
-  const accounts = await ethereum.request({ method: 'eth_requestAccounts' }).then(()=>{
+  const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
     const user = accounts[0];
 
   const count = prompt("How many do you want (0.1 MON/PIG)");
@@ -701,9 +701,6 @@ document.getElementById("adoptBtn").addEventListener("click", async () => {
     alert("Error !");
   }
   });
-  
-});
-
-  </script>
+   </script>
 </body>
 </html>
