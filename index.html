@@ -5,45 +5,90 @@
   <title>Adopt a Guinea Pig</title>
   <style>
     body {
-  margin: 0;
-  padding: 0;
-  background: url('https://ipfs.io/ipfs/bafybeifteqheuz3eqwqrymcu3bnszpticwwlzkq5etnzpshmh2w2luoigy/Popcorn.webp') no-repeat center center fixed;
-  background-size: cover;
-  font-family: sans-serif;
-}
+      margin: 0;
+      padding: 0;
+      background: url('https://ipfs.io/ipfs/bafybeifteqheuz3eqwqrymcu3bnszpticwwlzkq5etnzpshmh2w2luoigy/Popcorn.webp') no-repeat center center fixed;
+      background-size: cover;
+      font-family: sans-serif;
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
 
-.overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+    .overlay {
+      width: 100%;
+      max-width: 900px; /* Prevent overlay from stretching too wide */
+      padding: 20px;
+      box-sizing: border-box;
+    }
 
-#adoptBtn {
-  padding: 15px 30px;
-  font-size: 20px;
-  border: none;
-  background-color: #ff7f50;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
+    h1 {
+      font-size: 3rem;
+      margin: 20px 0;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    }
 
-#adoptBtn:hover {
-  background-color: #ff5722;
-}
+    #adoptBtn {
+      padding: 15px 30px;
+      font-size: 20px;
+      border: none;
+      background-color: #ff7f50;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+      margin-top: 30px;
+    }
 
+    #adoptBtn:hover {
+      background-color: #ff5722;
+    }
+
+    .description {
+      font-size: 1rem;
+      margin-top: 30px;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .description {
+        font-size: 0.9rem;
+        padding: 0 10px;
+      }
+
+      #adoptBtn {
+        padding: 12px 25px;
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="overlay">
+    <h1>THE GUINEA PIG COLLECTION</h1>
     <button id="adoptBtn">ADOPT</button>
-  </div>
+    <div class="description">
+      <p>🐹 Adopt your adorable guinea pig!<br>
+      There are 19 of them — all unique, all ridiculously cute — and they're waiting for you! Each adoption costs just 0.1 MON, and brings you one step closer to the ultimate prize: Popcorn, the legendary guinea pig watching from the background. 👀</p>
+      <p>🪄 Complete the collection… and Popcorn might just become yours.</p>
+      <p>👉 Click “Adopt” and start your collection now!</p>
+    </div>
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script defer>
   window.addEventListener('DOMContentLoaded', () => {
-    const contractAddress = "0xC17822cCDDb883135603829c5e119b1f467bF63f";
+    const contractAddress = "0x62771E14421f00565BD76096D818BCd5d05E8AC1";
     const contractABI = [
 	{
 		"inputs": [],
@@ -668,12 +713,11 @@
 	}
 ]; // ton ABI ici
 
-const SEPOLIA_CHAIN_ID = "0xAA36A7"; // Hexadecimal for 11155111
 async function switchToSepolia() {
     try {
         await ethereum.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: SEPOLIA_CHAIN_ID }],
+            params: [{ chainId: 10143 }],
         });
         console.log("Switched to Sepolia network");
     } catch (switchError) {
@@ -684,15 +728,15 @@ async function switchToSepolia() {
                     method: "wallet_addEthereumChain",
                     params: [
                         {
-                            chainId: SEPOLIA_CHAIN_ID,
-                            chainName: "Sepolia Test Network",
+                            chainId: 10143,
+                            chainName: "Monad Testnet",
                             nativeCurrency: {
-                                name: "Sepolia Ether",
-                                symbol: "ETH",
+                                name: "Monad",
+                                symbol: "MON",
                                 decimals: 18,
                             },
-                            rpcUrls: ["https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID"],
-                            blockExplorerUrls: ["https://sepolia.etherscan.io"],
+                            rpcUrls: ["https://testnet-rpc.monad.xyz"],
+                            blockExplorerUrls: ["https://testnet.monadexplorer.com"],
                         },
                     ],
                 });
