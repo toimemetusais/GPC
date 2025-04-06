@@ -713,11 +713,13 @@
 	}
 ]; // ton ABI ici
 
+const monad_id="279f"
+
 async function switchToSepolia() {
     try {
         await ethereum.request({
             method: "wallet_switchEthereumChain",
-            params: [{ chainId: 10143 }],
+            params: [{ chainId: monad_id }],
         });
         console.log("Switched to Sepolia network");
     } catch (switchError) {
@@ -728,7 +730,7 @@ async function switchToSepolia() {
                     method: "wallet_addEthereumChain",
                     params: [
                         {
-                            chainId: 10143,
+                            chainId: monad_id,
                             chainName: "Monad Testnet",
                             nativeCurrency: {
                                 name: "Monad",
@@ -760,7 +762,7 @@ async function switchToSepolia() {
       const user = accounts[0];
 
       const currentChainId = await ethereum.request({ method: "eth_chainId" });
-        if (currentChainId !== 10143) {
+        if (currentChainId !== monad_id) {
             await switchToSepolia();
         }
 
