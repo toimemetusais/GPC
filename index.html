@@ -40,11 +40,11 @@
   <div class="overlay">
     <button id="adoptBtn">ADOPT</button>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-
-  <script>
-    const contractAddress = "0xC17822cCDDb883135603829c5e119b1f467bF63f"; // à remplacer
-const contractABI = [
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js" defer></script>
+<script defer>
+  window.addEventListener('DOMContentLoaded', () => {
+    const contractAddress = "0xC17822cCDDb883135603829c5e119b1f467bF63f";
+    const contractABI = [
 	{
 		"inputs": [],
 		"name": "adopt",
@@ -666,41 +666,43 @@ const contractABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]; // colle ton ABI ici
+]; // ton ABI ici
 
-document.getElementById("adoptBtn").addEventListener("click", async () => {
-  if (typeof window.ethereum === 'undefined') {
-    alert("MetaMask is required !");
-    return;
-  }
+    document.getElementById("adoptBtn").addEventListener("click", async () => {
+      if (typeof window.ethereum === 'undefined') {
+        alert("MetaMask is required !");
+        return;
+      }
 
-  const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-    const user = accounts[0];
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const user = accounts[0];
 
-  const count = prompt("How many do you want (0.1 MON/PIG)");
-  if (!count || isNaN(count) || count <= 0) {
-    alert("Please enter a valid number");
-    return;
-  }
+      const count = prompt("How many do you want (0.1 MON/PIG)");
+      if (!count || isNaN(count) || count <= 0) {
+        alert("Please enter a valid number");
+        return;
+      }
 
-  const value = (0.1 * count).toString(); // en ETH
+      const value = (0.1 * count).toString();
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-  try {
-    const tx = await contract.adopt({
-      value: ethers.utils.parseEther(value)
+      try {
+        const tx = await contract.adopt({
+          value: ethers.utils.parseEther(value)
+        });
+        alert("Transact send !");
+        await tx.wait();
+        alert("Guinea Pigs adopted !");
+      } catch (err) {
+        console.error(err);
+        alert("Error !");
+      }
     });
-    alert("Transact send !");
-    await tx.wait();
-    alert("Guinea Pigs adopted !");
-  } catch (err) {
-    console.error(err);
-    alert("Error !");
-  }
   });
-   </script>
+</script>
+
 </body>
 </html>
